@@ -1,0 +1,27 @@
+{
+  "name": "redux-lecture",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "0.18.0",
+    "cors": "2.8.5",
+    "express": "4.16.4",
+    "react": "16.6.3",
+    "react-dom": "16.6.3",
+    "react-scripts-ts": "3.1.0"
+  },
+  "scripts": {
+    "start": "DEBUG=express:* nodemon server/index.js & react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/jest": "23.3.9",
+    "@types/node": "10.12.9",
+    "@types/react": "16.7.6",
+    "@types/react-dom": "16.0.9",
+    "nodemon": "1.18.6",
+    "typescript": "3.1.6"
+  }
+}

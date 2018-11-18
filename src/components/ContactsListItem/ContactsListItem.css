@@ -1,0 +1,9 @@
+.contact-list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.contact-list-item__field {
+    flex: 1;
+}
