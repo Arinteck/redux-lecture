@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IContact } from "../../typings/contact";
-import AppDataSourceContainer from "../../containers/AppDataSourceContainer/AppDataSourceContainer";
+import AppScreenContainer from "../../containers/AppContainer/AppScreenContainer";
 
 interface IAppState {
     contacts: IContact[];
@@ -9,7 +9,7 @@ interface IAppState {
 export default class App extends React.Component<{}, IAppState> {
     public render() {
         return (
-            <AppDataSourceContainer />
+            <AppScreenContainer />
         );
     }
 }

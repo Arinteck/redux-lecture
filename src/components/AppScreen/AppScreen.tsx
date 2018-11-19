@@ -5,16 +5,19 @@ import { IContact } from "../../typings/contact";
 
 interface IAppScreenProps {
     contacts: IContact[];
+    isLoading: boolean;
     onAddItem: (contact: IContact) => void;
 }
 
 export default class AppScreen extends React.Component<IAppScreenProps, {}> {
     render() {
-        const { contacts, onAddItem } = this.props;
+        const { contacts, onAddItem, isLoading } = this.props;
         return (
             <div>
                 <AddItem onAddItem={onAddItem} />
-                <ContactsList contacts={contacts} />
+                {isLoading ? 'Loading...' :
+                    <ContactsList contacts={contacts}/>
+                }
             </div>
         );
     }
