@@ -1,24 +1,11 @@
-import {Action, Dispatch} from "redux";
-import {IContact} from "../typings/contact";
-import axios from "axios";
+import { Action } from "redux";
+import { IContact } from "../typings/contact";
 
 export const FETCH_CONTACTS = 'FETCH_CONTACTS';
 export type FetchContactsAction = Action<typeof FETCH_CONTACTS>;
 export  function fetchContacts(): FetchContactsAction {
     return {
         type: FETCH_CONTACTS
-    }
-}
-
-export function getContacts(): (dispatch: Dispatch<Action>) => Promise<void>  {
-    return async (dispatch: Dispatch<Action>) => {
-        dispatch(fetchContacts());
-
-        const res = await axios.get('/contacts');
-
-        if (res.status === 200) {
-            dispatch(fetchContactsSuccess({ contacts: res.data }));
-        }
     }
 }
 
@@ -34,13 +21,15 @@ export function fetchContactsSuccess(params: IFetchContactsSuccessPayload): Fetc
     }
 }
 
-
-export function addContact(contact: IContact): (dispatch: Dispatch<Action>) => Promise<void>  {
-    return async (dispatch: Dispatch<Action>) => {
-        const res = await axios.post('/contacts', { contact });
-        if (res.status === 200 && res.data) {
-            dispatch(addContactSuccess({ contact }));
-        }
+export const ADD_CONTACT = 'ADD_CONTACT';
+export interface IAddContactPayload {
+    contact: IContact;
+}
+export type AddContactAction = Action<typeof ADD_CONTACT> & IAddContactPayload;
+export function addContact(params: IAddContactPayload): AddContactAction {
+    return {
+        type: ADD_CONTACT,
+        ...params
     }
 }
 
@@ -56,6 +45,8 @@ export function addContactSuccess(params: IAddContactSuccessPayload): AddContact
     }
 }
 
-export type ContactsAction = FetchContactsAction
+export type ContactsAction =
+    AddContactAction
+    | FetchContactsAction
     | FetchContactsSuccessAction
     | AddContactSuccessAction;
