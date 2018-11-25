@@ -1,5 +1,8 @@
 import { IContactsState } from "../typings/state";
-import {ADD_CONTACT, ContactsAction, FETCH_CONTACTS, FETCH_CONTACTS_SUCCESS} from "../actions/contactsActions";
+import {
+    ADD_CONTACT_SUCCESS, ContactsAction, FETCH_CONTACTS,
+    FETCH_CONTACTS_SUCCESS
+} from "../actions/contactsActions";
 
 export const contactsInitialState: IContactsState = {
     isLoading: false,
@@ -23,7 +26,7 @@ export default function contacts(
                 list: action.contacts
             }
         }
-        case ADD_CONTACT: {
+        case ADD_CONTACT_SUCCESS: {
             return {
                 ...state,
                 list: [...state.list, action.contact]

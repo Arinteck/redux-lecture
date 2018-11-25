@@ -1,37 +1,20 @@
 import * as React from "react";
 import { IContact } from "../../typings/contact";
-import axios from "axios";
 import AppScreen from "../../components/AppScreen/AppScreen";
+import { Action, Dispatch } from "redux";
 
 export interface IAppDataSourceContainerProps {
     contacts: IContact[];
     isLoading: boolean;
-    addContact: (contact: IContact) => void;
-    fetchContacts: () => void;
-    onContactsFetched: (contacts: IContact[]) => void;
+    actions: {
+        getContacts: () => (dispatch: Dispatch<Action>) => Promise<void>,
+        addContact: (contact: IContact) => (dispatch: Dispatch<Action>) => Promise<void>,
+    }
 }
 
-
 export class AppDataSource extends React.Component<IAppDataSourceContainerProps, {}> {
-    async getContacts() {
-        this.props.fetchContacts();
-
-        const res = await axios.get('/contacts');
-
-        if (res.status === 200) {
-            this.props.onContactsFetched(res.data);
-        }
-    }
-
-    async postContact(contact: IContact) {
-        const res = await axios.post('/contacts', { contact });
-        if (res.status === 200 && res.data) {
-            this.props.addContact(contact);
-        }
-    }
-
     componentDidMount() {
-        this.getContacts();
+        this.props.actions.getContacts();
     }
 
     render() {
@@ -47,6 +30,6 @@ export class AppDataSource extends React.Component<IAppDataSourceContainerProps,
     }
 
     private handleAddItem = (contact: IContact) => {
-        this.postContact(contact);
+        this.props.actions.addContact(contact);
     }
 }

@@ -10,7 +10,8 @@
     "react-dom": "16.6.3",
     "react-redux": "5.1.1",
     "react-scripts-ts": "3.1.0",
-    "redux": "4.0.1"
+    "redux": "4.0.1",
+    "redux-thunk": "2.3.0"
   },
   "scripts": {
     "start": "DEBUG=express:* nodemon server/index.js & react-scripts-ts start",

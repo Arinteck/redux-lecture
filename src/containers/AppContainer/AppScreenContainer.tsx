@@ -1,8 +1,8 @@
-import {addContact, fetchContacts, fetchContactsSuccess} from "../../actions/contactsActions";
+import {addContact, getContacts} from "../../actions/contactsActions";
 import {IContact} from "../../typings/contact";
 import {IState} from "../../typings/state";
 import {AppDataSource} from "../AppDataSourceContainer/AppDataSourceContainer";
-import {Action, Dispatch} from "redux";
+import {Action, bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
 
 interface IStateProps {
@@ -11,9 +11,10 @@ interface IStateProps {
 }
 
 interface IDispatchProps {
-    addContact: (conact: IContact) => void;
-    fetchContacts: () => void;
-    onContactsFetched: (contacts: IContact[]) => void;
+    actions: {
+        getContacts: () => (dispatch: Dispatch<Action>) => Promise<void>,
+        addContact: (contact: IContact) => (dispatch: Dispatch<Action>) => Promise<void>
+    }
 }
 
 const mapStateToProps = (state: IState) => {
@@ -30,12 +31,9 @@ const mapStateToProps = (state: IState) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): IDispatchProps => ({
-    addContact: (contact: IContact) =>  dispatch(addContact({ contact })),
-    fetchContacts: () =>
-        dispatch(
-            fetchContacts()
-        ),
-    onContactsFetched: (contacts: IContact[]) => dispatch(fetchContactsSuccess({ contacts }))
+    actions:
+        bindActionCreators({ getContacts, addContact }, dispatch),
+
 });
 
 const AppScreenContainer = connect<
